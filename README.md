@@ -157,7 +157,7 @@ Pokretanje skripte:
 
 ```bash
 cd Tests
-python demo_test.py
+python TestiranjeKesa.py
 ```
 
 ---
@@ -181,6 +181,6 @@ CACHE HIT: dotnet
 
 ---
 
-# Autor
+# Autori: Una Milić i Jana Marković (TIM 17)
 
-Projekat izrađen za predmet Sistemsko programiranje.
+Projekat izrađen za predmet Sistemsko programiranje - zadatak broj 5.
