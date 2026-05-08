@@ -74,10 +74,12 @@ Primer:
 
 ```txt
 Files/
-├── 5g_technologz.txt
+├── 5g_technology.txt
 ├── algorithms.pdf
 └── cybersecurity.docx
 ```
+
+Primer za više rezultata: agorithmsl
 
 ---
 
