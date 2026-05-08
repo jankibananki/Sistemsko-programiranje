@@ -79,7 +79,7 @@ Files/
 └── cybersecurity.docx
 ```
 
-Primer za više rezultata: agorithmsl
+Primer za više rezultata: algorithms
 
 ---
 
