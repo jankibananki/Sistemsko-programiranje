@@ -74,9 +74,9 @@ Primer:
 
 ```txt
 Files/
-├── dotnet_notes.txt
-├── field.pdf
-└── test.docx
+├── 5g_technologz.txt
+├── algorithms.pdf
+└── cybersecurity.docx
 ```
 
 ---
