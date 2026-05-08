@@ -1,0 +1,6 @@
+@FileSearchWebServer_HostAddress = http://localhost:5081
+
+GET {{FileSearchWebServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
