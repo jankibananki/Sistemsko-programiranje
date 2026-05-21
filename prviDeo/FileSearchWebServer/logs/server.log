@@ -1,0 +1,96 @@
+[2026-05-22 01:07:57.895] [Thread 13] ThreadPool worker pokrenut: Worker-8
+[2026-05-22 01:07:57.895] [Thread 8] ThreadPool worker pokrenut: Worker-3
+[2026-05-22 01:07:57.895] [Thread 9] ThreadPool worker pokrenut: Worker-4
+[2026-05-22 01:07:57.895] [Thread 11] ThreadPool worker pokrenut: Worker-6
+[2026-05-22 01:07:57.895] [Thread 7] ThreadPool worker pokrenut: Worker-2
+[2026-05-22 01:07:57.895] [Thread 10] ThreadPool worker pokrenut: Worker-5
+[2026-05-22 01:07:57.895] [Thread 12] ThreadPool worker pokrenut: Worker-7
+[2026-05-22 01:07:57.895] [Thread 5] ThreadPool worker pokrenut: Worker-1
+[2026-05-22 01:07:57.930] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-05-22 01:07:57.930] [Thread 2] Broj worker niti: 8
+[2026-05-22 01:08:11.769] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 0
+[2026-05-22 01:08:15.133] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:08:15.135] [Thread 9] Obrada zahteva: dotnet
+[2026-05-22 01:08:15.137] [Thread 9] CACHE MISS: dotnet
+[2026-05-22 01:08:30.091] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:08:30.091] [Thread 8] Obrada zahteva: dotnet_notes.txt
+[2026-05-22 01:08:30.095] [Thread 8] Download fajla: dotnet_notes.txt
+[2026-05-22 01:08:42.922] [Thread 11] Obrada zahteva: dotnet
+[2026-05-22 01:08:42.922] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:08:42.923] [Thread 11] CACHE HIT: dotnet
+[2026-05-22 01:08:59.063] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:08:59.063] [Thread 7] Obrada zahteva: 5g
+[2026-05-22 01:08:59.064] [Thread 7] CACHE MISS: 5g
+[2026-05-22 01:09:03.343] [Thread 10] Obrada zahteva: bla
+[2026-05-22 01:09:03.343] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 0
+[2026-05-22 01:09:03.344] [Thread 10] CACHE MISS: bla
+[2026-05-22 01:09:21.730] [Thread 12] Obrada zahteva: dotnet
+[2026-05-22 01:09:21.730] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:09:21.731] [Thread 12] CACHE HIT: dotnet
+[2026-05-22 01:09:26.725] [Thread 4] Graceful shutdown pokrenut.
+[2026-05-22 01:09:26.727] [Thread 10] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.727] [Thread 7] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.727] [Thread 5] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.727] [Thread 13] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.727] [Thread 8] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.727] [Thread 9] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.727] [Thread 11] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.727] [Thread 12] Worker nit je zavrsila rad.
+[2026-05-22 01:09:26.728] [Thread 2] Accept petlja je zavrsena.
+[2026-05-22 01:09:47.881] [Thread 7] ThreadPool worker pokrenut: Worker-2
+[2026-05-22 01:09:47.881] [Thread 11] ThreadPool worker pokrenut: Worker-6
+[2026-05-22 01:09:47.882] [Thread 13] ThreadPool worker pokrenut: Worker-8
+[2026-05-22 01:09:47.881] [Thread 8] ThreadPool worker pokrenut: Worker-3
+[2026-05-22 01:09:47.881] [Thread 5] ThreadPool worker pokrenut: Worker-1
+[2026-05-22 01:09:47.881] [Thread 12] ThreadPool worker pokrenut: Worker-7
+[2026-05-22 01:09:47.881] [Thread 9] ThreadPool worker pokrenut: Worker-4
+[2026-05-22 01:09:47.881] [Thread 10] ThreadPool worker pokrenut: Worker-5
+[2026-05-22 01:09:47.917] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-05-22 01:09:47.917] [Thread 2] Broj worker niti: 8
+[2026-05-22 01:09:53.484] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 0
+[2026-05-22 01:09:55.920] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:09:55.922] [Thread 13] Obrada zahteva: dotnet
+[2026-05-22 01:09:55.924] [Thread 13] CACHE MISS: dotnet
+[2026-05-22 01:10:00.095] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:10:00.095] [Thread 11] Obrada zahteva: 5g
+[2026-05-22 01:10:00.097] [Thread 11] CACHE MISS: 5g
+[2026-05-22 01:10:06.298] [Thread 8] Obrada zahteva: astro
+[2026-05-22 01:10:06.298] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:10:06.299] [Thread 8] CACHE MISS: astro
+[2026-05-22 01:10:14.385] [Thread 5] Obrada zahteva: cyber
+[2026-05-22 01:10:14.385] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:10:14.386] [Thread 5] CACHE REMOVE LRU: dotnet
+[2026-05-22 01:10:14.387] [Thread 5] CACHE MISS: cyber
+[2026-05-22 01:10:23.562] [Thread 12] Obrada zahteva: astro
+[2026-05-22 01:10:23.562] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:10:23.563] [Thread 12] CACHE HIT: astro
+[2026-05-22 01:10:37.630] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:10:37.631] [Thread 9] Obrada zahteva: 5g
+[2026-05-22 01:10:37.632] [Thread 9] CACHE HIT: 5g
+[2026-05-22 01:10:52.978] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:10:52.978] [Thread 10] Obrada zahteva: astro
+[2026-05-22 01:10:52.979] [Thread 10] CACHE HIT: astro
+[2026-05-22 01:11:00.697] [Thread 2] Zahtev dodat u red. Trenutna velicina reda: 1
+[2026-05-22 01:11:00.697] [Thread 7] Obrada zahteva: dotnet
+[2026-05-22 01:11:00.699] [Thread 7] CACHE REMOVE LRU: cyber
+[2026-05-22 01:11:00.699] [Thread 7] CACHE MISS: dotnet
+[2026-05-22 01:11:09.359] [Thread 4] Graceful shutdown pokrenut.
+[2026-05-22 01:11:09.361] [Thread 7] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 11] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 13] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 12] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 8] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 10] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 5] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 9] Worker nit je zavrsila rad.
+[2026-05-22 01:11:09.361] [Thread 2] Accept petlja je zavrsena.
+[2026-05-22 01:11:13.241] [Thread 10] ThreadPool worker pokrenut: Worker-5
+[2026-05-22 01:11:13.241] [Thread 8] ThreadPool worker pokrenut: Worker-3
+[2026-05-22 01:11:13.242] [Thread 13] ThreadPool worker pokrenut: Worker-8
+[2026-05-22 01:11:13.241] [Thread 7] ThreadPool worker pokrenut: Worker-2
+[2026-05-22 01:11:13.242] [Thread 12] ThreadPool worker pokrenut: Worker-7
+[2026-05-22 01:11:13.241] [Thread 9] ThreadPool worker pokrenut: Worker-4
+[2026-05-22 01:11:13.241] [Thread 11] ThreadPool worker pokrenut: Worker-6
+[2026-05-22 01:11:13.241] [Thread 5] ThreadPool worker pokrenut: Worker-1
+[2026-05-22 01:11:13.274] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-05-22 01:11:13.275] [Thread 2] Broj worker niti: 8
