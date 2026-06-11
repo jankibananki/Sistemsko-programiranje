@@ -1,0 +1,135 @@
+[2026-06-03 10:58:50.925] [Thread 2] Worker 1 startovan.
+[2026-06-03 10:58:50.962] [Thread 2] Worker 2 startovan.
+[2026-06-03 10:58:50.962] [Thread 2] Worker 3 startovan.
+[2026-06-03 10:58:50.963] [Thread 2] Worker 4 startovan.
+[2026-06-03 10:58:50.963] [Thread 2] Worker 5 startovan.
+[2026-06-03 10:58:50.964] [Thread 2] Worker 6 startovan.
+[2026-06-03 10:58:50.964] [Thread 2] Worker 7 startovan.
+[2026-06-03 10:58:50.965] [Thread 2] Worker 8 startovan.
+[2026-06-03 10:58:50.965] [Thread 2] Startovano worker Task-ova: 8
+[2026-06-03 10:58:51.021] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-03 10:58:51.022] [Thread 2] Accept petlja prima zahteve, worker Task-ovi ih obradjuju iz reda.
+[2026-06-03 10:58:51.049] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 10:58:51.052] [Thread 5] Obrada zahteva: dotnet
+[2026-06-03 10:58:51.061] [Thread 5] CACHE MISS: dotnet
+[2026-06-03 10:58:51.070] [Task 1] CACHE STORE: dotnet (1 fajlova)
+[2026-06-03 10:58:51.106] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 10:58:51.106] [Thread 7] Obrada zahteva: dotnet_notes.txt
+[2026-06-03 10:58:51.114] [Thread 7] Download fajla: dotnet_notes.txt
+[2026-06-03 10:59:13.522] [Thread 2] Worker 1 startovan.
+[2026-06-03 10:59:13.569] [Thread 2] Worker 2 startovan.
+[2026-06-03 10:59:13.571] [Thread 2] Worker 3 startovan.
+[2026-06-03 10:59:13.572] [Thread 2] Worker 4 startovan.
+[2026-06-03 10:59:13.574] [Thread 2] Worker 5 startovan.
+[2026-06-03 10:59:13.575] [Thread 2] Worker 6 startovan.
+[2026-06-03 10:59:13.577] [Thread 2] Worker 7 startovan.
+[2026-06-03 10:59:13.578] [Thread 2] Worker 8 startovan.
+[2026-06-03 10:59:13.579] [Thread 2] Startovano worker Task-ova: 8
+[2026-06-03 10:59:13.625] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-03 10:59:13.626] [Thread 2] Accept petlja prima zahteve, worker Task-ovi ih obradjuju iz reda.
+[2026-06-03 10:59:13.825] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 10:59:19.132] [Thread 5] Obrada zahteva: quantum
+[2026-06-03 10:59:19.146] [Thread 5] CACHE MISS: quantum
+[2026-06-03 11:01:37.345] [Thread 2] Worker 1 startovan.
+[2026-06-03 11:01:37.378] [Thread 2] Worker 2 startovan.
+[2026-06-03 11:01:37.379] [Thread 2] Worker 3 startovan.
+[2026-06-03 11:01:37.380] [Thread 2] Worker 4 startovan.
+[2026-06-03 11:01:37.381] [Thread 2] Worker 5 startovan.
+[2026-06-03 11:01:37.382] [Thread 2] Worker 6 startovan.
+[2026-06-03 11:01:37.383] [Thread 2] Worker 7 startovan.
+[2026-06-03 11:01:37.384] [Thread 2] Worker 8 startovan.
+[2026-06-03 11:01:37.385] [Thread 2] Startovano worker Task-ova: 8
+[2026-06-03 11:01:37.426] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-03 11:01:37.427] [Thread 2] Accept petlja prima zahteve, worker Task-ovi ih obradjuju iz reda.
+[2026-06-03 11:01:37.490] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:01:37.493] [Thread 5] Obrada zahteva: quantum
+[2026-06-03 11:01:37.499] [Thread 5] CACHE MISS: quantum
+[2026-06-03 11:01:37.508] [Task 1] CACHE STORE: quantum (3 fajlova)
+[2026-06-03 11:01:37.531] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:01:37.531] [Thread 7] Obrada zahteva: quantum
+[2026-06-03 11:01:37.532] [Thread 7] CACHE HIT: quantum
+[2026-06-03 11:05:48.166] [Thread 2] Worker 1 startovan.
+[2026-06-03 11:05:48.194] [Thread 2] Worker 2 startovan.
+[2026-06-03 11:05:48.195] [Thread 2] Worker 3 startovan.
+[2026-06-03 11:05:48.196] [Thread 2] Worker 4 startovan.
+[2026-06-03 11:05:48.196] [Thread 2] Worker 5 startovan.
+[2026-06-03 11:05:48.196] [Thread 2] Worker 6 startovan.
+[2026-06-03 11:05:48.197] [Thread 2] Worker 7 startovan.
+[2026-06-03 11:05:48.197] [Thread 2] Worker 8 startovan.
+[2026-06-03 11:05:48.198] [Thread 2] Startovano worker Task-ova: 8
+[2026-06-03 11:05:48.252] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-03 11:05:48.253] [Thread 2] Accept petlja prima zahteve, worker Task-ovi ih obradjuju iz reda.
+[2026-06-03 11:05:51.831] [Thread 4] Graceful shutdown pokrenut.
+[2026-06-03 11:05:51.833] [Thread 2] Cekam da zavrse worker Task-ovi: 8
+[2026-06-03 11:05:51.839] [Task 1] Worker 2 zavrsio rad.
+[2026-06-03 11:05:51.839] [Task 4] Worker 3 zavrsio rad.
+[2026-06-03 11:05:51.839] [Task 2] Worker 1 zavrsio rad.
+[2026-06-03 11:05:51.839] [Task 3] Worker 4 zavrsio rad.
+[2026-06-03 11:05:51.839] [Task 5] Worker 6 zavrsio rad.
+[2026-06-03 11:05:51.839] [Task 6] Worker 5 zavrsio rad.
+[2026-06-03 11:05:51.839] [Task 7] Worker 7 zavrsio rad.
+[2026-06-03 11:05:51.840] [Task 8] Worker 8 zavrsio rad.
+[2026-06-03 11:05:51.840] [Thread 2] Accept petlja i worker Task-ovi su zavrseni.
+[2026-06-03 11:05:57.011] [Thread 2] Worker 1 startovan.
+[2026-06-03 11:05:57.035] [Thread 2] Worker 2 startovan.
+[2026-06-03 11:05:57.036] [Thread 2] Worker 3 startovan.
+[2026-06-03 11:05:57.036] [Thread 2] Worker 4 startovan.
+[2026-06-03 11:05:57.036] [Thread 2] Worker 5 startovan.
+[2026-06-03 11:05:57.037] [Thread 2] Worker 6 startovan.
+[2026-06-03 11:05:57.037] [Thread 2] Worker 7 startovan.
+[2026-06-03 11:05:57.037] [Thread 2] Worker 8 startovan.
+[2026-06-03 11:05:57.037] [Thread 2] Startovano worker Task-ova: 8
+[2026-06-03 11:05:57.084] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-03 11:05:57.085] [Thread 2] Accept petlja prima zahteve, worker Task-ovi ih obradjuju iz reda.
+[2026-06-03 11:06:41.434] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:06:41.550] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:06:41.553] [Thread 5] Obrada zahteva: favicon.ico
+[2026-06-03 11:06:41.566] [Thread 5] CACHE MISS: favicon.ico
+[2026-06-03 11:06:41.583] [Task 1] CACHE STORE: favicon.ico (0 fajlova)
+[2026-06-03 11:06:46.584] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:06:46.585] [Thread 7] Obrada zahteva: field
+[2026-06-03 11:06:46.586] [Thread 7] CACHE MISS: field
+[2026-06-03 11:06:46.588] [Task 2] CACHE STORE: field (1 fajlova)
+[2026-06-03 11:06:46.635] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:06:46.635] [Thread 5] Obrada zahteva: favicon.ico
+[2026-06-03 11:06:46.637] [Thread 5] CACHE HIT: favicon.ico
+[2026-06-03 11:07:25.982] [Thread 4] Graceful shutdown pokrenut.
+[2026-06-03 11:07:25.987] [Thread 2] Cekam da zavrse worker Task-ovi: 8
+[2026-06-03 11:07:25.988] [Task 3] Worker 5 zavrsio rad.
+[2026-06-03 11:07:25.988] [Task 4] Worker 6 zavrsio rad.
+[2026-06-03 11:07:25.988] [Task 5] Worker 7 zavrsio rad.
+[2026-06-03 11:07:25.988] [Task 6] Worker 8 zavrsio rad.
+[2026-06-03 11:07:25.988] [Task 7] Worker 1 zavrsio rad.
+[2026-06-03 11:07:25.989] [Task 8] Worker 2 zavrsio rad.
+[2026-06-03 11:07:25.989] [Task 9] Worker 3 zavrsio rad.
+[2026-06-03 11:07:25.989] [Task 10] Worker 4 zavrsio rad.
+[2026-06-03 11:07:25.989] [Thread 2] Accept petlja i worker Task-ovi su zavrseni.
+[2026-06-03 11:12:08.967] [Thread 2] Worker 1 startovan.
+[2026-06-03 11:12:08.996] [Thread 2] Worker 2 startovan.
+[2026-06-03 11:12:08.996] [Thread 2] Worker 3 startovan.
+[2026-06-03 11:12:08.997] [Thread 2] Worker 4 startovan.
+[2026-06-03 11:12:08.997] [Thread 2] Worker 5 startovan.
+[2026-06-03 11:12:08.997] [Thread 2] Worker 6 startovan.
+[2026-06-03 11:12:08.998] [Thread 2] Worker 7 startovan.
+[2026-06-03 11:12:08.999] [Thread 2] Worker 8 startovan.
+[2026-06-03 11:12:09.000] [Thread 2] Startovano worker Task-ova: 8
+[2026-06-03 11:12:09.053] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-03 11:12:09.053] [Thread 2] Accept petlja prima zahteve, worker Task-ovi ih obradjuju iz reda.
+[2026-06-03 11:12:13.860] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:12:14.005] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 0
+[2026-06-03 11:12:19.840] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 0
+[2026-06-03 11:12:19.840] [Thread 5] Obrada zahteva: field
+[2026-06-03 11:12:19.861] [Thread 5] CACHE MISS: field
+[2026-06-03 11:12:19.895] [Task 1] CACHE STORE: field (1 fajlova)
+[2026-06-03 11:12:19.999] [Thread 2] Zahtev prihvacen i dodat u red. Duzina reda: 1
+[2026-06-03 11:13:18.892] [Thread 4] Graceful shutdown pokrenut.
+[2026-06-03 11:13:18.896] [Thread 2] Cekam da zavrse worker Task-ovi: 8
+[2026-06-03 11:13:18.897] [Task 2] Worker 5 zavrsio rad.
+[2026-06-03 11:13:18.897] [Task 3] Worker 6 zavrsio rad.
+[2026-06-03 11:13:18.898] [Task 4] Worker 7 zavrsio rad.
+[2026-06-03 11:13:18.898] [Task 5] Worker 8 zavrsio rad.
+[2026-06-03 11:13:18.899] [Task 6] Worker 2 zavrsio rad.
+[2026-06-03 11:13:18.899] [Task 7] Worker 1 zavrsio rad.
+[2026-06-03 11:13:18.899] [Task 8] Worker 3 zavrsio rad.
+[2026-06-03 11:13:18.900] [Task 9] Worker 4 zavrsio rad.
+[2026-06-03 11:13:18.900] [Thread 2] Accept petlja i worker Task-ovi su zavrseni.

@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileSearchWebServer-P2", "FileSearchWebServer-P2", "{5AC5FE4F-0F6E-C314-564A-B6B865EE7F72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSearchWebServer", "FileSearchWebServer-P2\FileSearchWebServer.csproj", "{B134BB35-7A52-399F-B540-6410FB4969BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B134BB35-7A52-399F-B540-6410FB4969BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B134BB35-7A52-399F-B540-6410FB4969BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B134BB35-7A52-399F-B540-6410FB4969BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B134BB35-7A52-399F-B540-6410FB4969BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B134BB35-7A52-399F-B540-6410FB4969BE} = {5AC5FE4F-0F6E-C314-564A-B6B865EE7F72}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09116FAF-9719-40ED-841B-7394A5AB587A}
+	EndGlobalSection
+EndGlobal
