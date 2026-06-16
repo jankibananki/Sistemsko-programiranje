@@ -25,26 +25,24 @@ Za graceful shutdown pritisnuti `ESC` u konzoli.
 
 ## Arhitektura
 
-Sistem je podeljen na prijem i obradu zahteva:
+Sistem koristi `HttpListener` za prijem zahteva, a obradu predaje task/thread pool mehanizmu:
 
-- `WebServer.Run()` je accept petlja i samo prihvata `HttpListenerContext`.
-- Svaki pristigli zahtev se pakuje u `ClientRequest` i ubacuje u `BlockingRequestQueue`.
-- `Program.Main()` startuje fiksan broj worker taskova preko `server.StartWorkers()`.
-- Worker taskovi asinhrono cekaju na `BlockingRequestQueue.DequeueAsync()` i obradjuju zahteve.
-- Broj paralelnih obrada je kontrolisan brojem worker taskova (`WorkerCount = 8`).
+- `WebServer.Run()` je accept petlja i prihvata `HttpListenerContext`.
+- Svaki pristigli zahtev se odmah zakazuje kroz `Task.Run`.
+- `HandleRequestAsync` obradjuje zahtev i poziva asinhrone metode za pretragu ili slanje fajla.
+- Server pamti aktivne request taskove samo da bi ih sacekao pri graceful shutdown-u.
 
-`Main` nije asinhron jer nema potrebe da entry point bude `async`. Taskovi se startuju iz `Main`, a serverova accept petlja ostaje blokirajuca.
+`Main` nije asinhron jer nema potrebe da entry point bude `async`. Serverova accept petlja ostaje blokirajuca, dok se pojedinacni zahtevi obradjuju konkurentno.
 
 ## Async operacije i taskovi
 
 Korisceno je:
 
-- `Task` worker-i za konkurentnu obradu zahteva.
+- `Task.Run` za predavanje svakog HTTP zahteva thread pool-u.
 - `await` u obradi HTTP zahteva.
 - `File.ReadAllBytesAsync` za download fajla.
 - `OutputStream.WriteAsync` za slanje fajla klijentu.
-- `SemaphoreSlim.WaitAsync` u redu zahteva, da worker task ne zauzima nit dok nema posla.
-- `Task.Run` samo u CPU-bound delu pretrage, gde se filtriraju i sortiraju nazivi fajlova.
+- `Task.Run` u CPU-bound delu pretrage, gde se filtriraju i sortiraju nazivi fajlova.
 
 Klasicna nit je zadrzana za `Console.ReadKey`, jer je to blokirajuca konzolna operacija i nema smislen async ekvivalent u ovom programu.
 
@@ -53,7 +51,7 @@ Klasicna nit je zadrzana za `Console.ReadKey`, jer je to blokirajuca konzolna op
 `ContinueWith` je demonstriran na dva mesta:
 
 - U `SearchCache.GetOrCreateAsync`, nastavak se izvrsava kada se zavrsi stvarna pretraga. Tada se rezultat upisuje u cache, ili se cache entry uklanja ako je doslo do greske ili otkazivanja.
-- U `WebServer.StartWorkers`, nastavak loguje zavrsetak ili gresku worker taska.
+- U `WebServer.TrackRequestTask`, nastavak uklanja zavrsen request task iz liste aktivnih taskova i loguje eventualnu gresku.
 
 Ova upotreba je smislena jer nastavak predstavlja akciju koja treba da se desi posle zavrsetka taska, bez blokiranja koda koji je task pokrenuo.
 
@@ -72,6 +70,8 @@ Ovo nije isto sto i `Ctrl+C`; token je programski mehanizam za kontrolisano otka
 
 `SearchCache` je thread-safe LRU cache sa maksimalnom velicinom (`CacheSize = 3`).
 
+Svaki cache entry ima expiration od `CacheEntryExpirationSeconds`. Ako entry nije koriscen duze od tog vremena, brise se pri sledecem pristupu cache-u.
+
 Cache stampede zastita:
 
 - Prvi zahtev za keyword kreira `TaskCompletionSource<List<string>>` i pokrece stvarnu pretragu.
@@ -85,15 +85,14 @@ Za sinhronizaciju cache-a koristi se `ReaderWriterLockSlim`, jer vise reader-a m
 
 | Komponenta | Mehanizam | Sta stiti |
 |---|---|---|
-| `BlockingRequestQueue` | `lock` + `SemaphoreSlim` | red pristiglih zahteva |
 | `SearchCache` | `ReaderWriterLockSlim` | cache recnik i LRU lista |
 | `FileSearchService` | `ReaderWriterLockSlim` | pristup root direktorijumu |
 | `ThreadSafeLogger` | `lock` | upis u log fajl |
-| `WebServer` | fiksan broj worker taskova | maksimalan broj paralelnih obrada |
+| `WebServer` | `lock` | lista aktivnih request taskova |
 
 ## Ponasanje pod opterecenjem
 
-Kod velikog broja paralelnih zahteva accept petlja brzo ubacuje zahteve u red, dok ih najvise `WorkerCount` taskova obradjuje istovremeno. Time se izbegava nekontrolisano kreiranje obrada. Kod velikog broja istih pretraga cache stampede mehanizam sprecava da vise taskova istovremeno radi istu pretragu.
+Kod velikog broja paralelnih zahteva accept petlja svaki zahtev zakazuje kroz `Task.Run`, a .NET thread pool rasporedjuje izvrsavanje. Kod velikog broja istih pretraga cache stampede mehanizam sprecava da vise taskova istovremeno radi istu pretragu.
 
 Log fajl se nalazi u:
 

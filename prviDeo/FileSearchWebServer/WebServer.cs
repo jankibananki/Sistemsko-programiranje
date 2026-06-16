@@ -7,45 +7,36 @@ public class WebServer
 {
     private readonly string _url;
     private readonly int _port;
-    private readonly int _workerCount;
-
-    // Deljeni red zahteva.
-    //
-    // Accept nit upisuje u ovaj red.
-    // Worker niti citaju iz ovog reda.
-    private readonly BlockingRequestQueue _requestQueue = new BlockingRequestQueue();
     private readonly ThreadSafeLogger _logger;
     private readonly SearchCache _cache;
     private readonly FileSearchService _fileService;
+    private readonly object _activeRequestsLock = new object();
+    private int _activeRequests;
 
     // volatile je bitan jer ovu promenljivu cita vise niti.
     // Kada jedna nit promeni vrednost, druge niti treba da vide promenu.
     private volatile bool _running = true;
     private HttpListener? _listener;
 
-    public WebServer(string url, int port, string rootDir, string logPath, int workerCount, int cacheSize)
+    public WebServer(string url, int port, string rootDir, string logPath, int cacheSize, TimeSpan cacheEntryExpiration)
     {
         _url = url;
         _port = port;
-        _workerCount = workerCount;
 
         _logger = new ThreadSafeLogger(logPath);
-        _cache = new SearchCache(cacheSize, _logger);
+        _cache = new SearchCache(cacheSize, cacheEntryExpiration, _logger);
         _fileService = new FileSearchService(rootDir);
     }
 
     public void Run()
     {
-        
-        StartWorkers();
-
         string prefix = $"{_url}:{_port}/";
         _listener = new HttpListener();
         _listener.Prefixes.Add(prefix);
         _listener.Start();
 
         _logger.Log("Server pokrenut: " + prefix);
-        _logger.Log("Broj worker niti: " + _workerCount);
+        _logger.Log("Accept petlja prima zahteve i predaje ih ThreadPool obradi.");
 
         //GLAVNA ACCEPT/LISTENING PETLJA.
         while (_running)
@@ -53,8 +44,8 @@ public class WebServer
             try
             {
                 HttpListenerContext context = _listener.GetContext();
-                _requestQueue.Enqueue(new ClientRequest(context));
-                _logger.Log("Zahtev dodat u red. Trenutna velicina reda: " + _requestQueue.Count);
+                StartRequest(context);
+                _logger.Log("Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.");
             }
             catch (HttpListenerException)
             {
@@ -76,63 +67,34 @@ public class WebServer
             }
         }
 
+        WaitForActiveRequests();
         _logger.Log("Accept petlja je zavrsena.");
     }
 
-    private void StartWorkers()
+    private void StartRequest(HttpListenerContext context)
     {
-        for (int i = 0; i < _workerCount; i++)
+        lock (_activeRequestsLock)
         {
-            int workerId = i + 1;
-
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                Thread.CurrentThread.Name = "Worker-" + workerId;
-                _logger.Log($"ThreadPool worker pokrenut: Worker-{workerId}");
-
-                WorkerLoop();
-            });
+            _activeRequests++;
         }
-    }
 
-    private void WorkerLoop()
-    {
-        while (_running)
+        ThreadPool.QueueUserWorkItem(_ =>
         {
-            ClientRequest? request = _requestQueue.Dequeue();
-
-            if (request == null)
-            {
-                break;
-            }
-
             try
             {
-                ProcessRequest(request.Context);
+                ProcessRequest(context);
             }
             catch (Exception ex)
             {
                 _logger.LogException(ex);
 
-                try
-                {
-                    SendHtml(
-                        request.Context.Response,
-                        "Greska",
-                        "Doslo je do greske na serveru.",
-                        HttpStatusCode.InternalServerError
-                    );
-                }
-                catch
-                {
-                    // Ako je klijent u medjuvremenu zatvorio konekciju,
-                    // slanje odgovora moze da pukne.
-                    // To nije razlog da server padne.
-                }
+                TrySendServerError(context.Response);
             }
-        }
-
-        _logger.Log("Worker nit je zavrsila rad.");
+            finally
+            {
+                FinishRequest();
+            }
+        });
     }
 
     // ProcessRequest obradjuje jedan HTTP zahtev.
@@ -270,6 +232,50 @@ public class WebServer
         return WebUtility.HtmlEncode(text);
     }
 
+    private void TrySendServerError(HttpListenerResponse response)
+    {
+        try
+        {
+            SendHtml(
+                response,
+                "Greska",
+                "Doslo je do greske na serveru.",
+                HttpStatusCode.InternalServerError
+            );
+        }
+        catch
+        {
+            // Ako je klijent u medjuvremenu zatvorio konekciju,
+            // slanje odgovora moze da pukne.
+            // To nije razlog da server padne.
+        }
+    }
+
+    private void FinishRequest()
+    {
+        lock (_activeRequestsLock)
+        {
+            _activeRequests--;
+
+            if (_activeRequests == 0)
+            {
+                Monitor.PulseAll(_activeRequestsLock);
+            }
+        }
+    }
+
+    private void WaitForActiveRequests()
+    {
+        lock (_activeRequestsLock)
+        {
+            while (_activeRequests > 0)
+            {
+                _logger.Log("Cekam da zavrse aktivni zahtevi: " + _activeRequests);
+                Monitor.Wait(_activeRequestsLock);
+            }
+        }
+    }
+
     // Stop metoda je centralni deo graceful shutdown-a.
     public void Stop()
     {
@@ -285,6 +291,5 @@ public class WebServer
         {
             
         }
-        _requestQueue.Stop();
     }
 }

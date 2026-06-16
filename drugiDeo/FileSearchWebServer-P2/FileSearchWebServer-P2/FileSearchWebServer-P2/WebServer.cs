@@ -7,44 +7,22 @@ public class WebServer
 {
     private readonly string _url;
     private readonly int _port;
-    private readonly int _workerCount;
-    private readonly BlockingRequestQueue _requestQueue = new BlockingRequestQueue();
     private readonly ThreadSafeLogger _logger;
     private readonly SearchCache _cache;
     private readonly FileSearchService _fileService;
-    private readonly List<Task> _workerTasks = new List<Task>();
+    private readonly List<Task> _requestTasks = new List<Task>();
+    private readonly object _requestTasksLock = new object();
 
     private volatile bool _running = true;
     private HttpListener? _listener;
 
-    public WebServer(string url, int port, string rootDir, string logPath, int workerCount, int cacheSize)
+    public WebServer(string url, int port, string rootDir, string logPath, int cacheSize, TimeSpan cacheEntryExpiration)
     {
         _url = url;
         _port = port;
-        _workerCount = workerCount;
         _logger = new ThreadSafeLogger(logPath);
-        _cache = new SearchCache(cacheSize, _logger);
+        _cache = new SearchCache(cacheSize, cacheEntryExpiration, _logger);
         _fileService = new FileSearchService(rootDir);
-    }
-
-    public void StartWorkers()
-    {
-        for (int i = 0; i < _workerCount; i++)
-        {
-            int workerId = i + 1;
-            Task workerTask = WorkerLoopAsync(workerId);
-            _workerTasks.Add(workerTask);
-
-            workerTask.ContinueWith(t =>
-            {
-                if (t.IsFaulted)
-                    _logger.Log("Worker Task greska: " + t.Exception?.GetBaseException().Message);
-                else
-                    _logger.Log($"Worker {workerId} zavrsio rad.");
-            }, TaskScheduler.Default);
-        }
-
-        _logger.Log($"Startovano worker Task-ova: {_workerCount}");
     }
 
     public void Run()
@@ -55,15 +33,16 @@ public class WebServer
         _listener.Start();
 
         _logger.Log("Server pokrenut: " + prefix);
-        _logger.Log("Accept petlja prima zahteve, worker Task-ovi ih obradjuju iz reda.");
+        _logger.Log("Accept petlja prima zahteve i predaje ih Task.Run/thread pool obradi.");
 
         while (_running)
         {
             try
             {
                 HttpListenerContext context = _listener.GetContext();
-                _requestQueue.Enqueue(new ClientRequest(context));
-                _logger.Log($"Zahtev prihvacen i dodat u red. Duzina reda: {_requestQueue.Count}");
+                Task requestTask = Task.Run(() => HandleRequestAsync(context));
+                TrackRequestTask(requestTask);
+                _logger.Log("Zahtev prihvacen i zakazan za obradu preko Task.Run.");
             }
             catch (HttpListenerException)
             {
@@ -81,29 +60,20 @@ public class WebServer
             }
         }
 
-        WaitForWorkers();
-        _logger.Log("Accept petlja i worker Task-ovi su zavrseni.");
+        WaitForRequestTasks();
+        _logger.Log("Accept petlja i aktivni request Task-ovi su zavrseni.");
     }
 
-    private async Task WorkerLoopAsync(int workerId)
+    private async Task HandleRequestAsync(HttpListenerContext context)
     {
-        _logger.Log($"Worker {workerId} startovan.");
-
-        while (true)
+        try
         {
-            ClientRequest? request = await _requestQueue.DequeueAsync();
-            if (request == null)
-                break;
-
-            try
-            {
-                await ProcessRequestAsync(request.Context);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogException(ex);
-                TrySendServerError(request.Context.Response);
-            }
+            await ProcessRequestAsync(context);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogException(ex);
+            TrySendServerError(context.Response);
         }
     }
 
@@ -277,16 +247,43 @@ public class WebServer
 
         try { _listener?.Stop(); }
         catch { }
-
-        _requestQueue.Stop(_workerCount);
     }
 
-    private void WaitForWorkers()
+    private void TrackRequestTask(Task requestTask)
     {
-        if (_workerTasks.Count == 0)
-            return;
+        lock (_requestTasksLock)
+        {
+            _requestTasks.Add(requestTask);
+        }
 
-        _logger.Log($"Cekam da zavrse worker Task-ovi: {_workerTasks.Count}");
-        Task.WaitAll(_workerTasks.ToArray());
+        requestTask.ContinueWith(t =>
+        {
+            if (t.IsFaulted)
+                _logger.Log("Request Task greska: " + t.Exception?.GetBaseException().Message);
+
+            lock (_requestTasksLock)
+            {
+                _requestTasks.Remove(t);
+            }
+        }, TaskScheduler.Default);
+    }
+
+    private void WaitForRequestTasks()
+    {
+        while (true)
+        {
+            Task[] tasks;
+
+            lock (_requestTasksLock)
+            {
+                tasks = _requestTasks.ToArray();
+            }
+
+            if (tasks.Length == 0)
+                return;
+
+            _logger.Log($"Cekam da zavrse aktivni request Task-ovi: {tasks.Length}");
+            Task.WaitAll(tasks);
+        }
     }
 }

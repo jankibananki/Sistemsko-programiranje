@@ -4,8 +4,8 @@ public class Program
 {
     private const string Url = "http://localhost";
     private const int Port = 5050;
-    private const int WorkerCount = 8;
     private const int CacheSize = 3;
+    private const int CacheEntryExpirationSeconds = 60;
 
     private static void Main(string[] args)
     {
@@ -20,7 +20,13 @@ public class Program
 
         Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
 
-        WebServer server = new WebServer(Url, Port, rootDir, logPath, WorkerCount, CacheSize);
+        WebServer server = new WebServer(
+            Url,
+            Port,
+            rootDir,
+            logPath,
+            CacheSize,
+            TimeSpan.FromSeconds(CacheEntryExpirationSeconds));
 
         // Posebna nit za graceful shutdown.
         Thread shutdownThread = new Thread(() =>

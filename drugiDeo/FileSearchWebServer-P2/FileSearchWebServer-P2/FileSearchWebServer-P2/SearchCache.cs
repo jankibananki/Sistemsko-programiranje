@@ -10,23 +10,29 @@ public class SearchCache
         }
 
         public string Key { get; }
+        public DateTime LastAccessUtc { get; set; } = DateTime.UtcNow;
         public TaskCompletionSource<List<string>> Completion { get; } =
             new TaskCompletionSource<List<string>>(TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
     private readonly int _maxSize;
+    private readonly TimeSpan _entryExpiration;
     private readonly Dictionary<string, CacheEntry> _entries =
         new Dictionary<string, CacheEntry>(StringComparer.OrdinalIgnoreCase);
     private readonly LinkedList<string> _lru = new LinkedList<string>();
     private readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
     private readonly ThreadSafeLogger _logger;
 
-    public SearchCache(int maxSize, ThreadSafeLogger logger)
+    public SearchCache(int maxSize, TimeSpan entryExpiration, ThreadSafeLogger logger)
     {
         if (maxSize <= 0)
             throw new ArgumentOutOfRangeException(nameof(maxSize), "Cache size mora biti veci od nule.");
 
+        if (entryExpiration <= TimeSpan.Zero)
+            throw new ArgumentOutOfRangeException(nameof(entryExpiration), "Expiration mora biti veci od nule.");
+
         _maxSize = maxSize;
+        _entryExpiration = entryExpiration;
         _logger = logger;
     }
 
@@ -41,13 +47,29 @@ public class SearchCache
         _cacheLock.EnterUpgradeableReadLock();
         try
         {
+            DateTime now = DateTime.UtcNow;
+
             if (_entries.TryGetValue(keyword, out entry!))
             {
-                _logger.Log($"CACHE HIT: {keyword}");
                 _cacheLock.EnterWriteLock();
                 try
                 {
-                    MoveToFront(keyword);
+                    RemoveExpiredReadyEntries(now);
+
+                    if (!_entries.TryGetValue(keyword, out entry!))
+                    {
+                        entry = new CacheEntry(keyword);
+                        _entries[keyword] = entry;
+                        _lru.AddFirst(keyword);
+                        shouldCompute = true;
+                        _logger.Log($"CACHE EXPIRED MISS: {keyword}");
+                    }
+                    else
+                    {
+                        entry.LastAccessUtc = now;
+                        MoveToFront(keyword);
+                        _logger.Log($"CACHE HIT: {keyword}");
+                    }
                 }
                 finally
                 {
@@ -59,6 +81,7 @@ public class SearchCache
                 _cacheLock.EnterWriteLock();
                 try
                 {
+                    RemoveExpiredReadyEntries(now);
                     entry = new CacheEntry(keyword);
                     _entries[keyword] = entry;
                     _lru.AddFirst(keyword);
@@ -110,6 +133,7 @@ public class SearchCache
                 }
 
                 List<string> result = t.Result;
+                entry.LastAccessUtc = DateTime.UtcNow;
                 entry.Completion.TrySetResult(result);
                 _logger.Log($"CACHE STORE: {keyword} ({result.Count} fajlova)");
                 TrimAfterStore();
@@ -146,8 +170,26 @@ public class SearchCache
         _lru.AddFirst(key);
     }
 
+    private void RemoveExpiredReadyEntries(DateTime now)
+    {
+        while (_lru.Last != null)
+        {
+            string keyToRemove = _lru.Last.Value;
+            CacheEntry entry = _entries[keyToRemove];
+
+            if (!entry.Completion.Task.IsCompleted || now - entry.LastAccessUtc < _entryExpiration)
+                break;
+
+            _lru.RemoveLast();
+            _entries.Remove(keyToRemove);
+            _logger.Log($"CACHE EXPIRE: {keyToRemove}");
+        }
+    }
+
     private void TrimReadyEntriesIfNeeded()
     {
+        RemoveExpiredReadyEntries(DateTime.UtcNow);
+
         while (_entries.Count > _maxSize && _lru.Last != null)
         {
             string keyToRemove = _lru.Last.Value;
