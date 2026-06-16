@@ -116,6 +116,12 @@ public class WebServer
         string rawPath = context.Request.Url?.AbsolutePath ?? "/";
         string value = Uri.UnescapeDataString(rawPath.Trim('/'));
 
+        if (value.Equals("favicon.ico", StringComparison.OrdinalIgnoreCase))
+        {
+            SendNoContent(context.Response);
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(value))
         {
             SendHomePage(context.Response);
@@ -223,6 +229,13 @@ public class WebServer
         response.ContentLength64 = buffer.Length;
 
         response.OutputStream.Write(buffer, 0, buffer.Length);
+        response.OutputStream.Close();
+    }
+
+    private static void SendNoContent(HttpListenerResponse response)
+    {
+        response.StatusCode = (int)HttpStatusCode.NoContent;
+        response.ContentLength64 = 0;
         response.OutputStream.Close();
     }
 
