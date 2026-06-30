@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FileSearchWebServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b880fb79ab48ab30ef263de93650716d19acd453")]
 [assembly: System.Reflection.AssemblyProductAttribute("FileSearchWebServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FileSearchWebServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

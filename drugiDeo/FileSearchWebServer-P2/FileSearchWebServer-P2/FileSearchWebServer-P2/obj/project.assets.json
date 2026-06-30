@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\FileSearchWebServer.csproj",
+      "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\sistemsko\\Sistemsko-programiranje\\drugiDeo\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\FileSearchWebServer.csproj",
       "projectName": "FileSearchWebServer",
-      "projectPath": "C:\\Users\\Korisnik\\Desktop\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\FileSearchWebServer.csproj",
+      "projectPath": "C:\\Users\\Korisnik\\Desktop\\sistemsko\\Sistemsko-programiranje\\drugiDeo\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\FileSearchWebServer.csproj",
       "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Korisnik\\Desktop\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\obj\\",
+      "outputPath": "C:\\Users\\Korisnik\\Desktop\\sistemsko\\Sistemsko-programiranje\\drugiDeo\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\FileSearchWebServer-P2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

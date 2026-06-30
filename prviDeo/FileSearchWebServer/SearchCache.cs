@@ -23,7 +23,11 @@ public class SearchCache
     private readonly Dictionary<string, CacheEntry> _entries = new Dictionary<string, CacheEntry>(StringComparer.OrdinalIgnoreCase);
     private readonly LinkedList<string> _lru = new LinkedList<string>();
     private readonly object _cacheLock = new object();
+    private readonly object _cleanupLock = new object();
     private readonly ThreadSafeLogger _logger;
+    private readonly Thread _cleanupThread;
+    private readonly TimeSpan _cleanupInterval;
+    private volatile bool _cleanupRunning = true;
 
     public SearchCache(int maxSize, TimeSpan entryExpiration, ThreadSafeLogger logger)
     {
@@ -36,6 +40,13 @@ public class SearchCache
         _maxSize = maxSize;
         _entryExpiration = entryExpiration;
         _logger = logger;
+        _cleanupInterval = TimeSpan.FromSeconds(Math.Min(5, entryExpiration.TotalSeconds));
+
+        _cleanupThread = new Thread(CleanupExpiredEntriesLoop);
+        _cleanupThread.IsBackground = true;
+        _cleanupThread.Start();
+
+        _logger.Log("CACHE CLEANUP THREAD STARTED");
     }
 
 
@@ -53,7 +64,11 @@ public class SearchCache
 
             if (_entries.TryGetValue(keyword, out entry!))
             {
-                entry.LastAccessUtc = now;
+                lock (entry.Sync)
+                {
+                    entry.LastAccessUtc = now;
+                }
+
                 MoveToFront(keyword);
 
                 _logger.Log($"CACHE HIT: {keyword}");
@@ -142,17 +157,36 @@ public class SearchCache
     // Ova metoda se poziva samo dok je _cacheLock vec zakljucan.
     private void RemoveExpiredReadyEntries(DateTime now)
     {
-        while (_lru.Last != null)
+        LinkedListNode<string>? current = _lru.Last;
+
+        while (current != null)
         {
-            string keyToRemove = _lru.Last.Value;
+            LinkedListNode<string>? previous = current.Previous;
+            string keyToRemove = current.Value;
             CacheEntry entry = _entries[keyToRemove];
+            bool isReady;
+            DateTime lastAccessUtc;
 
-            if (!entry.IsReady || now - entry.LastAccessUtc < _entryExpiration)
-                break;
+            lock (entry.Sync)
+            {
+                isReady = entry.IsReady;
+                lastAccessUtc = entry.LastAccessUtc;
+            }
 
-            _lru.RemoveLast();
+            if (!isReady)
+            {
+                current = previous;
+                continue;
+            }
+
+            if (now - lastAccessUtc < _entryExpiration)
+                return;
+
+            _lru.Remove(current);
             _entries.Remove(keyToRemove);
             _logger.Log($"CACHE EXPIRE: {keyToRemove}");
+
+            current = previous;
         }
     }
 
@@ -171,6 +205,42 @@ public class SearchCache
             _entries.Remove(keyToRemove);
 
             _logger.Log($"CACHE REMOVE LRU: {keyToRemove}");
+        }
+    }
+
+    private void CleanupExpiredEntriesLoop()
+    {
+        while (_cleanupRunning)
+        {
+            lock (_cleanupLock)
+            {
+                Monitor.Wait(_cleanupLock, _cleanupInterval);
+            }
+
+            if (!_cleanupRunning)
+                break;
+
+            lock (_cacheLock)
+            {
+                RemoveExpiredReadyEntries(DateTime.UtcNow);
+            }
+        }
+
+        _logger.Log("CACHE CLEANUP THREAD STOPPED");
+    }
+
+    public void Stop()
+    {
+        _cleanupRunning = false;
+
+        lock (_cleanupLock)
+        {
+            Monitor.PulseAll(_cleanupLock);
+        }
+
+        if (Thread.CurrentThread != _cleanupThread)
+        {
+            _cleanupThread.Join();
         }
     }
 }

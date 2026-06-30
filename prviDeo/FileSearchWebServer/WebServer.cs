@@ -304,5 +304,7 @@ public class WebServer
         {
             
         }
+
+        _cache.Stop();
     }
 }

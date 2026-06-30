@@ -94,3 +94,86 @@
 [2026-05-22 01:11:13.241] [Thread 5] ThreadPool worker pokrenut: Worker-1
 [2026-05-22 01:11:13.274] [Thread 2] Server pokrenut: http://localhost:5050/
 [2026-05-22 01:11:13.275] [Thread 2] Broj worker niti: 8
+[2026-06-16 13:36:09.906] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-16 13:36:09.925] [Thread 2] Accept petlja prima zahteve i predaje ih ThreadPool obradi.
+[2026-06-16 13:36:14.970] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:36:15.105] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:36:15.108] [Thread 5] Obrada zahteva: favicon.ico
+[2026-06-16 13:36:15.115] [Thread 5] CACHE MISS: favicon.ico
+[2026-06-16 13:36:21.404] [Thread 5] Obrada zahteva: field
+[2026-06-16 13:36:21.404] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:36:21.406] [Thread 5] CACHE MISS: field
+[2026-06-16 13:36:21.517] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:36:21.517] [Thread 5] Obrada zahteva: favicon.ico
+[2026-06-16 13:36:21.519] [Thread 5] CACHE HIT: favicon.ico
+[2026-06-16 13:40:41.151] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-16 13:40:41.168] [Thread 2] Accept petlja prima zahteve i predaje ih ThreadPool obradi.
+[2026-06-16 13:40:45.006] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:40:45.015] [Thread 5] Obrada zahteva: field
+[2026-06-16 13:40:45.025] [Thread 5] CACHE MISS: field
+[2026-06-16 13:40:45.167] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:40:54.720] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:40:54.720] [Thread 5] Obrada zahteva: quantum_field_theory.txt
+[2026-06-16 13:40:54.723] [Thread 5] Download fajla: quantum_field_theory.txt
+[2026-06-16 13:41:13.780] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:18.508] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:18.508] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:18.510] [Thread 5] CACHE MISS: data
+[2026-06-16 13:41:18.575] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:26.236] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:26.236] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:26.238] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:26.287] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:27.125] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:27.125] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:27.127] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:27.177] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:27.596] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:27.596] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:27.598] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:27.629] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.002] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.002] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:28.003] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:28.046] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.331] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.331] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:28.333] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:28.369] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.591] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.591] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:28.592] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:28.623] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.796] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:28.796] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:28.797] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:28.831] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.018] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.018] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:29.020] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:29.052] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.200] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.200] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:29.202] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:29.238] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.373] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.374] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:29.375] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:29.406] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.550] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.550] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:29.552] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:29.580] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.729] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:29.729] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:29.730] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:29.763] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:30.391] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-16 13:41:30.391] [Thread 5] Obrada zahteva: data
+[2026-06-16 13:41:30.393] [Thread 5] CACHE HIT: data
+[2026-06-16 13:41:30.434] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-30 18:36:08.950] [Thread 2] CACHE CLEANUP THREAD STARTED
+[2026-06-30 18:36:09.033] [Thread 2] Server pokrenut: http://localhost:5050/
+[2026-06-30 18:36:09.033] [Thread 2] Accept petlja prima zahteve i predaje ih ThreadPool obradi.
+[2026-06-30 18:36:13.682] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.
+[2026-06-30 18:36:13.869] [Thread 2] Zahtev prihvacen i zakazan za obradu preko ThreadPool-a.

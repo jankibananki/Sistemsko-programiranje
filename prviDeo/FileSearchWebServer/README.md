@@ -52,12 +52,13 @@ Ne koristi se vise `BlockingRequestQueue` ni `ClientRequest`, jer nema rucnog re
 | `FileSearchService` | `lock` | pristup root direktorijumu |
 | `ThreadSafeLogger` | `lock` | upis u log fajl |
 | `WebServer._running` | `volatile bool` | signal za zaustavljanje accept petlje |
+| `SearchCache` cleanup nit | `volatile bool` + `Monitor.Wait/PulseAll` | periodican signal za proveru isteklih entry-ja |
 
 ## Cache
 
 `SearchCache` je thread-safe LRU cache sa maksimalnom velicinom `CacheSize`.
 
-Svaki cache entry ima expiration od `CacheEntryExpirationSeconds`. Kada entry nije koriscen duze od tog vremena, brise se pri sledecem pristupu cache-u.
+Svaki cache entry ima expiration od `CacheEntryExpirationSeconds`. `SearchCache` pokrece posebnu background nit koja periodicno proverava cache i brise spremne entry-je kojima je TTL istekao. Ista provera se radi i pri pristupu cache-u, da cache ostane uredan i izmedju dva ciklusa cleanup niti.
 
 Ako vise niti istovremeno trazi isti keyword koji nije u cache-u, samo jedna nit izvrsava pretragu. Ostale cekaju na isti cache entry pomocu `Monitor.Wait`, a po zavrsetku pretrage bude se pomocu `Monitor.PulseAll`.
 
